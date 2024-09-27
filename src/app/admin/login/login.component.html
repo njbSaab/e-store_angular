@@ -1,0 +1,55 @@
+<div class="form-wrapper">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        id="email"
+        placeholder="email@example.com"
+      />
+      <div
+        class="error-box"
+        *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('email')?.errors?.['required']"
+          >Enter email</span
+        >
+        <span class="error-message" *ngIf="form.get('email')?.errors?.['email']"
+          >Email invalid</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        formControlName="password"
+        id="password"
+        placeholder="********"
+      />
+      <div
+        class="error-box"
+        *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('password')?.errors?.['required']"
+          >Enter password</span
+        >
+        <span
+          class="error-message"
+          *ngIf="form.get('password')?.errors?.['minlength']"
+        >
+          Password must be at least
+          {{ form.get('password')?.errors?.['minlength'].requiredLength }}
+          characters long. Now it has {{ form.get("password")?.value?.length }}
+        </span>
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid || submitted">Login</button>
+  </form>
+</div>

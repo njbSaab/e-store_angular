@@ -1,0 +1,64 @@
+<header class="header">
+  <mat-toolbar>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/']" class="logo">Admin Panel</a>
+    <ul *ngIf="auth.isAuthenticated(); else login" class="header-menu row">
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin', 'dashboard']" mat-button class="menu-link"
+          >Dashboard</a
+        >
+      </li>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin', 'added-page']" mat-button class="menu-link"
+          >Add product</a
+        >
+      </li>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin', 'product']" mat-button class="menu-link"
+          >Edit product</a
+        >
+      </li>
+
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin', 'orders-page']" mat-button class="menu-link"
+          >Orders</a
+        >
+      </li>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin', 'login']">
+          <button
+            mat-icon-button
+            class="exit-icon"
+            aria-label="Example icon-button with share icon"
+            (click)="logout($event)"
+          >
+            <mat-icon>logout</mat-icon>
+          </button>
+        </a>
+      </li>
+    </ul>
+    <ng-template #login>
+      <ul class="header-icons-menu row">
+        <li routerLinkActive="router-link-active">
+          <a [routerLink]="['/admin', '']">
+            <button
+              mat-icon-button
+              class="exit-icon"
+              aria-label="Example icon-button with share icon"
+            >
+              <mat-icon>login</mat-icon>
+            </button>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+  </mat-toolbar>
+</header>
+
+<router-outlet></router-outlet>

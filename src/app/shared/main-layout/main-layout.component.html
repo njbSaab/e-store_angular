@@ -1,0 +1,43 @@
+<header class="header">
+  <mat-toolbar>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/']" class="logo">My Store</a>
+    <ul class="header-menu row">
+      <li>
+        <a mat-button class="menu-link">Phone</a>
+      </li>
+      <li>
+        <a mat-button class="menu-link">Tablet</a>
+      </li>
+      <li><a mat-button class="menu-link">Laptop</a></li>
+      <li>
+        <a [routerLink]="['/cart']" mat-button class="menu-link">Cart</a>
+      </li>
+    </ul>
+    <span class="example-spacer"></span>
+    <button
+      mat-icon-button
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+</header>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
