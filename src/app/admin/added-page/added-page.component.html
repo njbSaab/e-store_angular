@@ -1,1 +1,101 @@
-<p>added-page works!</p>
+<div class="form-wrapper">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Add <span class="text-success">new</span> product</h2>
+
+    <div class="form-group">
+      <label for="type">Type</label>
+      <select
+        formControlName="type"
+        class="is-full-width"
+        id="type"
+        placeholder="Choose a product type"
+      >
+        <option value="phone">Phone</option>
+        <option value="tablet">Tablet</option>
+        <option value="laptop">Laptop</option>
+      </select>
+      <div
+        class="error-box"
+        *ngIf="form.get('type')?.invalid && form.get('type')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('type')?.errors?.['required']"
+          >Choose a product type</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Name</label>
+      <input
+        type="text"
+        formControlName="title"
+        id="title"
+        placeholder="Product name"
+      />
+      <div
+        class="error-box"
+        *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('title')?.errors?.['required']"
+          >Add the product name</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Photo</label>
+      <input
+        type="text"
+        formControlName="photo"
+        id="photo"
+        placeholder="Photo URL"
+      />
+      <div
+        class="error-box"
+        *ngIf="form.get('photo')?.invalid && form.get('photo')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('photo')?.errors?.['required']"
+          >Provide a photo URL</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="info">Information:</label>
+      <textarea
+        name="info"
+        id="info"
+        formControlName="info"
+        placeholder="Enter product information"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input
+        type="number"
+        formControlName="price"
+        id="price"
+        placeholder="Price"
+      />
+      <div
+        class="error-box"
+        *ngIf="form.get('price')?.invalid && form.get('price')?.touched"
+      >
+        <span
+          class="error-message"
+          *ngIf="form.get('price')?.errors?.['required']"
+          >Enter the price</span
+        >
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="submitted">Add Product</button>
+  </form>
+</div>
