@@ -1,0 +1,38 @@
+<!-- class="product-card" -->
+<div class="product-card">
+  <div class="product-image">
+    <img [src]="product.photo" />
+  </div>
+  <div class="product-info">
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.info }}</p>
+    <div class="product-price">
+      <span class="price">{{ product.price }}</span>
+      <span class="currency">$</span>
+    </div>
+  </div>
+  <div class="btn-wrapper">
+    <button class="button primary" [routerLink]="['/cart']">
+      Add to Cart
+      <span class="svg">
+        <img
+          src="https://icongr.am/clarity/add.svg?size=20&color=ffffff"
+          alt=""
+        />
+      </span>
+    </button>
+
+    <button
+      class="button outline primary"
+      [routerLink]="['/product', product.id]"
+    >
+      Open
+      <span class="svg">
+        <img
+          class="swg"
+          src="https://icongr.am/octicons/arrow-right.svg?size=20&color=000000"
+        />
+      </span>
+    </button>
+  </div>
+</div>

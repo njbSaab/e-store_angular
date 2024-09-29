@@ -1,1 +1,27 @@
-<p>product-page works!</p>
+<div *ngIf="product$ | async as product; else loading">
+  <button [routerLink]="['/']" class="button clear primary">
+    <span class="svg">
+      <img
+        src="https://icongr.am/octicons/arrow-left.svg?size=30&color=000000"
+        alt=""
+      />
+    </span>
+    Back
+  </button>
+  <div class="product row is-center">
+    <div class="product-action col-4">
+      <div class="img-wrapper">
+        <img [src]="product.photo" />
+      </div>
+      <p class="price">Price: {{ product.price || "Price Not Available" }}</p>
+      <button class="button success">Add to card</button>
+    </div>
+
+    <div class="product-description col-4">
+      <h2>{{ product.title || "Product Title Not Available" }}</h2>
+      <p>{{ product.info || "No description available." }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>Loading...</ng-template>

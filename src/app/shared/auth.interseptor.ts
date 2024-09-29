@@ -8,14 +8,20 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  const authToken = auth.token;
+  // List of public routes that don't require a token
+  const publicUrls = ['/home'];
 
-  if (authToken) {
-    req = req.clone({
-      setParams: {
-        auth: authToken
-      }
-    });
+  // Check if the request URL is in the publicUrls list
+  if (!publicUrls.some(url => req.url.includes(url))) {
+    const authToken = auth.token;
+
+    if (authToken) {
+      req = req.clone({
+        setParams: {
+          auth: authToken
+        }
+      });
+    }
   }
 
   return next(req).pipe(

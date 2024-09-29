@@ -1,0 +1,9 @@
+.header-menu {
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: end;
+  gap: 20px;
+  list-style: none;
+  align-items: center;
+  vertical-align: middle;
+}/*# sourceMappingURL=admin-layout.component.css.map */
