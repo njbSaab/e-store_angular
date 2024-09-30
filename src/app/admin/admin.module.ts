@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../shared/auth.guard';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,12 +26,12 @@ import { AuthGuard } from '../shared/auth.guard';
     RouterModule.forChild([
       {
         path: '', component: AdminLayoutComponent, children: [
-          { path: '', redirectTo: 'login', pathMatch: 'full' },
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
           { path: 'login', component: LoginComponent },
           { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
           { path: 'added-page', component: AddedPageComponent, canActivate: [AuthGuard] },
           { path: 'product/:id/edit', component: EditPageComponent, canActivate: [AuthGuard] },
-          { path: 'orders-page', component: OrdersPageComponent,canActivate: [AuthGuard]  },
+          { path: 'orders-page', component: OrdersPageComponent, canActivate: [AuthGuard] },
         ]
       },
       { path: '**', redirectTo: 'login' }

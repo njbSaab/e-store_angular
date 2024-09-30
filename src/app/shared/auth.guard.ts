@@ -13,10 +13,18 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.auth.isAuthenticated()) {
+    console.log('AuthGuard проверяет авторизацию');
+    const isAuthenticated = this.auth.isAuthenticated();
+    console.log('Пользователь авторизован:', isAuthenticated);
+
+    if (isAuthenticated) {
       return true;
     } else {
-      this.router.navigate(['/admin', 'login']);
+      this.router.navigate(['/admin', 'login'], {
+        queryParams: {
+          returnUrl: state.url // Сохраняем URL для редиректа после логина
+        }
+      });
       return false;
     }
   }

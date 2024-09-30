@@ -1,1 +1,55 @@
-<p>dashboard works!</p>
+<div class="container" *ngIf="products && products.length > 0; else loading">
+  <h2 class="is-center">Dashboard Products</h2>
+
+  <div class="form-control">
+    <input
+      type="text"
+      placeholder="find a product..."
+      [(ngModel)]="productName"
+    />
+  </div>
+  <div
+    *ngFor="let product of products | search : productName; let i = index"
+    class="card-wrapper row"
+  >
+    <div class="card">
+      <span class="is-center title">
+        {{ product.type }}
+      </span>
+      <header class="row">
+        <h4 class="col-10">
+          <span> {{ i + 1 }} - </span>
+          {{ product.title }}
+        </h4>
+        <p class="col-2">
+          {{ product.date | date }}
+        </p>
+      </header>
+      <p>
+        <span class="description">
+          {{ product.info }}
+        </span>
+        <span class="price">
+          {{ product.price }}
+        </span>
+      </p>
+
+      <footer class="is-right">
+        <button
+          [routerLink]="['/admin', 'product', product.id, 'edit']"
+          class="button success"
+        >
+          Edit product
+        </button>
+        <button
+          (click)="product.id ? remove(product.id) : null"
+          class="button error"
+        >
+          Delete
+        </button>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>Loading...</ng-template>

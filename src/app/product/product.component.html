@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="btn-wrapper">
-    <button class="button primary" [routerLink]="['/cart']">
+    <button class="button primary" (click)="addProduct(product)">
       Add to Cart
       <span class="svg">
         <img

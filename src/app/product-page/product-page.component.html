@@ -14,7 +14,9 @@
         <img [src]="product.photo" />
       </div>
       <p class="price">Price: {{ product.price || "Price Not Available" }}</p>
-      <button class="button success">Add to card</button>
+      <button class="button primary" (click)="addProduct(product)">
+        Add to card
+      </button>
     </div>
 
     <div class="product-description col-4">

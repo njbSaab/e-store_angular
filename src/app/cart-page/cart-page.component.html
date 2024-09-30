@@ -1,1 +1,45 @@
-<p>cart-page works!</p>
+<div class="container">
+  <div *ngIf="products$ | async as products; else empty">
+    <div class="cards-wrapper" *ngFor="let product of products; let i = index">
+      <div class="card row">
+        <span class="is-center title">
+          {{ product.type }}
+        </span>
+        <header class="row">
+          <h4 class="col-10">
+            <span> {{ i + 1 }} - </span>
+            {{ product.title }}
+          </h4>
+          <p class="col-2">
+            {{ product.date | date }}
+          </p>
+        </header>
+        <p>
+          <span class="description">
+            {{ product.info }}
+          </span>
+          <span class="price">
+            {{ product.price }}
+          </span>
+        </p>
+
+        <footer class="is-right">
+          <button class="button success">Edit product</button>
+          <!-- (click)="product.id ? remove(product.id) : null" -->
+          <button class="button error">Delete</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="result row">
+    <span> Count product: {{ countProducts$ | async }} </span>
+    <p>Total sum: {{ totalPrice }}</p>
+  </div>
+
+  <ng-template #empty>
+    <div class="is-center">
+      Cart is empty <span> {{ countProducts$ | async }}</span>
+    </div>
+  </ng-template>
+</div>

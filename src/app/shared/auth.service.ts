@@ -12,7 +12,7 @@ export class AuthService {
   login(User: { email: string; password: string; }) {
     return this.http.post<AuthResponse>(  // Указываем тип ответа от сервера
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
-      User
+      { ...User, returnSecureToken: true } // Обязательно включаем returnSecureToken
     ).pipe(
       tap(response => this.setToken(response))  // Передаем объект в setToken
     );
@@ -28,7 +28,7 @@ export class AuthService {
     }
   }
 
-  get token() {
+  get token(): string | null {
     const expDateStr = localStorage.getItem('fb-token-exp');
     if (!expDateStr) {
       this.logOut();
@@ -47,7 +47,7 @@ export class AuthService {
     this.setToken(null);
   }
 
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     return !!this.token;
   }
 }

@@ -17,7 +17,18 @@
       </li>
       <li><a mat-button class="menu-link">Laptop</a></li>
       <li>
-        <a [routerLink]="['/cart']" mat-button class="menu-link">Cart</a>
+        <a [routerLink]="['/cart']" mat-button class="menu-link">
+          <img
+            src="https://icongr.am/material/basket-fill.svg?size=30&color=ffffff
+          "
+            alt=""
+          />
+          <span class="basket-service">
+            {{ countProducts$ | async }}
+            <!-- Отображаем количество товаров -->
+          </span>
+          <img src="" alt="" />
+        </a>
       </li>
     </ul>
     <span class="example-spacer"></span>
@@ -28,13 +39,13 @@
     >
       <mat-icon>favorite</mat-icon>
     </button>
-    <button
+    <!-- <button
       mat-icon-button
       class="example-icon"
       aria-label="Example icon-button with share icon"
     >
       <mat-icon>share</mat-icon>
-    </button>
+    </button> -->
   </mat-toolbar>
 </header>
 

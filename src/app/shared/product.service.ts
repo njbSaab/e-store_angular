@@ -5,13 +5,20 @@ import { environment } from '../../../../environment/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Product } from '../shared/interfaces/product';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  cartProducts: Product[] = []; // Инициализируем как пустой массив
+  private countProductsSubject = new BehaviorSubject<number>(0); // Храним количество товаров в корзине
+  countProducts$: Observable<number> = this.countProductsSubject.asObservable(); // Экспонируем поток
+
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   // Метод для создания нового продукта
   createProduct(product: any): Observable<Product> {
@@ -68,16 +75,24 @@ export class ProductService {
     );
   }
 
+  remove(id: string): Observable<Product>{
+    const url = `${environment.fbDbUrl}/products/${id}.json`;
+    return this.http.delete<Product>(url)
+  }
 
-  // remove(id: string): Observable<Product>{
-  //   const url = `${environment.fbDbUrl}/products/${id}.json`;
-  //   return this.http.delete<Product>(url)
-  // }
+  update(product: Product): Observable<Product>{
+    const url =  `${environment.fbDbUrl}/products/${product.id}.json`;
 
-  // update(id: string): Observable<Product>{
-  //   const url =  `${environment.fbDbUrl}/products/${product.id}.json`;
+    return this.http.patch<Product>(url, product)
 
-  //   return this.http.patch<Product>(url, product)
+  }
 
-  // }
+  addProduct(product: Product) {
+    this.cartProducts.push(product);
+    this.countProductsSubject.next(this.cartProducts.length);
+  }
+
+  getCountProducts(): Observable<number> {
+    return this.countProducts$;
+  }
 }
