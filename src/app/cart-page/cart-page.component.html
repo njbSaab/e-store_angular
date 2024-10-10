@@ -1,11 +1,14 @@
 <div class="container">
+  <div class="card-title">
+    <h2 class="is-center">Products</h2>
+  </div>
   <div *ngIf="products$ | async as products; else empty">
     <div class="cards-wrapper" *ngFor="let product of products; let i = index">
       <div class="card row">
-        <span class="is-center title">
+        <span class="is-center title col-12">
           {{ product.type }}
         </span>
-        <header class="row">
+        <header class="row is-full-width">
           <h4 class="col-10">
             <span> {{ i + 1 }} - </span>
             {{ product.title }}
@@ -31,12 +34,107 @@
       </div>
     </div>
   </div>
-
+  <br />
   <div class="result row">
-    <span> Count product: {{ countProducts$ | async }} </span>
-    <p>Total sum: {{ totalPrice }}</p>
+    <h5 class="col-6">Count product: {{ countProducts$ | async }}</h5>
+    <h4 class="col-6 text-right">
+      <b> Total sum: {{ totalPrice }} </b>
+    </h4>
   </div>
+  <br />
+  <br />
 
+  <div class="order">
+    <h2 class="is-center">Delivery</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Enter your name</label>
+        <input
+          type="text"
+          formControlName="name"
+          id="title"
+          placeholder="Your name"
+        />
+        <div
+          class="error-box"
+          *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+        >
+          <span
+            class="error-message"
+            *ngIf="form.get('name')?.errors?.['required']"
+            >Submitte order</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Enter you phone number</label>
+        <input
+          type="number"
+          formControlName="phone"
+          id="phone"
+          placeholder="Your phone"
+        />
+        <div
+          class="error-box"
+          *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched"
+        >
+          <span
+            class="error-message"
+            *ngIf="form.get('phone')?.errors?.['required']"
+            >Enter the price</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="adress">Enter you adress number</label>
+        <input
+          type="text"
+          formControlName="adress"
+          id="adress"
+          placeholder="Your adress"
+        />
+        <div
+          class="error-box"
+          *ngIf="form.get('adress')?.invalid && form.get('adress')?.touched"
+        >
+          <span
+            class="error-message"
+            *ngIf="form.get('adress')?.errors?.['required']"
+            >Enter the adress</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="payment">Type payment</label>
+        <select
+          formControlName="payment"
+          class="is-full-width"
+          id="type"
+          placeholder="Choose a product type"
+        >
+          <option value="cash">Cash</option>
+          <option value="card">Card</option>
+        </select>
+        <div
+          class="error-box"
+          *ngIf="form.get('type')?.invalid && form.get('type')?.touched"
+        >
+          <span
+            class="error-message"
+            *ngIf="form.get('type')?.errors?.['required']"
+            >Choose a form payment</span
+          >
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="submitted">Submitte order</button>
+    </form>
+  </div>
+  <br />
+  <br />
   <ng-template #empty>
     <div class="is-center">
       Cart is empty <span> {{ countProducts$ | async }}</span>
